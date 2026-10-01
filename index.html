@@ -30,7 +30,14 @@
         <label>Unidade SENAI:</label>
         <input type="text" id="unidade" value="SENAI Telêmaco Borba">
 
-        <label>Curso:</label>
+        <label>Tipo de Curso / Modalidade:</label>
+        <select id="tipoCurso">
+            <option value="Técnico">Técnico (Média Mínima: 7,0)</option>
+            <option value="Qualificação">Qualificação (Média Mínima: 6,0)</option>
+            <option value="Aperfeiçoamento">Aperfeiçoamento (Média Mínima: 6,0)</option>
+        </select>
+
+        <label>Nome do Curso:</label>
         <input type="text" id="curso" placeholder="Ex: Técnico em Celulose e Papel">
 
         <label>Nome / Identificação da Turma:</label>
@@ -71,7 +78,12 @@
         <input type="text" id="assistente" value="Julia Thainá Gonçalves">
 
         <label>Supervisor(a) de Área:</label>
-        <input type="text" id="supervisor" value="Karina Cristiane Kendrick">
+        <select id="supervisor">
+            <option value="Karina Cristiane Kendrick">Karina Cristiane Kendrick</option>
+            <option value="Jose Aparecido Sovinski De Andrade">Jose Aparecido Sovinski De Andrade</option>
+            <option value="Gabriel Athayde Stockler">Gabriel Athayde Stockler</option>
+            <option value="Arialba De Lourdes Xavier">Arialba De Lourdes Xavier</option>
+        </select>
 
         <label>Representante da Secretaria:</label>
         <input type="text" id="secretaria" value="Reinaldo José de Almeida">
@@ -103,11 +115,11 @@
         <div class="row">
             <div class="col" style="flex: 0.8;">
                 <label>R.A.:</label>
-                <input type="text" id="ra" placeholder="Ex: 01074504">
+                <input type="text" id="ra" placeholder="Ex: 01074504 (ou Deixe em branco se não houver reprovados)">
             </div>
             <div class="col" style="flex: 1.5;">
                 <label>Nome do Aluno:</label>
-                <input type="text" id="aluno" placeholder="Ex: Pedro Santana de Souza">
+                <input type="text" id="aluno" placeholder="Ex: Pedro Santana de Souza (ou Deixe em branco)">
             </div>
         </div>
 
@@ -136,6 +148,7 @@
         <select id="deliberacao">
             <option value="APROVAÇÃO">APROVAÇÃO por Conselho de Classe</option>
             <option value="RETENÇÃO">RETENÇÃO por Conselho de Classe</option>
+            <option value="SEM_REPROVADOS">NÃO HÁ ALUNOS REPROVADOS / REGISTRO DE REGULARIDADE</option>
             <option value="REASSINATURA DE PLANO">Aguardando Plano de Recuperação</option>
         </select>
 
@@ -149,6 +162,7 @@
 <script>
 function gerarAta() {
     let unidade = document.getElementById('unidade').value || 'SENAI Telêmaco Borba';
+    let tipoCurso = document.getElementById('tipoCurso').value;
     let curso = document.getElementById('curso').value || '[Curso]';
     let turma = document.getElementById('turma').value || '[Turma]';
     let codTurma = document.getElementById('codTurma').value || '[Cód]';
@@ -160,14 +174,20 @@ function gerarAta() {
     let assistente = document.getElementById('assistente').value;
     let supervisor = document.getElementById('supervisor').value;
     let secretaria = document.getElementById('secretaria').value;
-    let ra = document.getElementById('ra').value || '[RA]';
-    let aluno = document.getElementById('aluno').value || '[Aluno]';
+    let ra = document.getElementById('ra').value || 'N/A';
+    let aluno = document.getElementById('aluno').value || 'N/A';
     let uc = document.getElementById('uc').value || '[Unidade Curricular]';
-    let nota = document.getElementById('nota').value || '0,0';
-    let faltas = document.getElementById('faltas').value || '0';
-    let frequencia = document.getElementById('frequencia').value || '0%';
-    let deliberacao = document.getElementById('deliberacao').value;
+    let nota = document.getElementById('nota').value || '-';
+    let faltas = document.getElementById('faltas').value || '-';
+    let frequencia = document.getElementById('frequencia').value || '-';
+    let deliberacaoOpcao = document.getElementById('deliberacao').value;
     let dataAssinatura = document.getElementById('dataAssinatura').value || 'Telêmaco Borba, 29 de setembro de 2026.';
+
+    // Definir texto da média com base no tipo de curso
+    let textoMedia = "7,0 (sete)";
+    if (tipoCurso === "Qualificação" || tipoCurso === "Aperfeiçoamento") {
+        textoMedia = "6,0 (seis)";
+    }
 
     // Coleta dos 6 Técnicos de Ensino
     let tecsLista = [
@@ -205,7 +225,53 @@ function gerarAta() {
 
     if(secretaria) assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${secretaria}</strong><br>Secretaria</div>`;
 
-    // SVG do Logotipo Oficial SENAI embutido diretamente no código
+    // Lógica para quando não há alunos reprovados
+    let blocoTabelaETexto = '';
+    if (deliberacaoOpcao === "SEM_REPROVADOS") {
+        blocoTabelaETexto = `
+        <p class="texto-paragrafo">
+            O Conselho de Classe analisou, com base na Ata de Resultado Final da turma e considerando os critérios regimentais da instituição — que estabelecem para cursos de nível <strong>${tipoCurso}</strong> a média <strong>${textoMedia}</strong> para aprovação direta e a frequência mínima de 75% (setenta e cinco por cento) em cada Unidade Curricular (UC) —, a situação acadêmica de todos os estudantes matriculados.
+        </p>
+        <p class="texto-paragrafo">
+            Após a verificação dos rendimentos e percursos pedagógicos, o Conselho registrou que <strong>NÃO HÁ ALUNOS REPROVADOS</strong> na referida Unidade Curricular / período, constando a totalidade dos discentes em situação de regularidade e aprovação.
+        </p>
+        `;
+    } else {
+        blocoTabelaETexto = `
+        <p class="texto-paragrafo">
+            O Conselho de Classe analisou, com base na Ata de Resultado Final da turma e considerando os critérios regimentais da instituição — que estabelecem para cursos de nível <strong>${tipoCurso}</strong> a média <strong>${textoMedia}</strong> para aprovação direta e a frequência mínima de 75% (setenta e cinco por cento) em cada Unidade Curricular (UC) —, a situação do aluno abaixo relacionado:
+        </p>
+
+        <table class="dados-tabela">
+            <thead>
+                <tr>
+                    <th>R.A.</th>
+                    <th>Aluno</th>
+                    <th>Unidade Curricular</th>
+                    <th>Nota</th>
+                    <th>Faltas</th>
+                    <th>Frequência</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>${ra}</td>
+                    <td>${aluno}</td>
+                    <td>${uc}</td>
+                    <td>${nota}</td>
+                    <td>${faltas}</td>
+                    <td>${frequencia}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="texto-paragrafo">
+            Após a análise do desempenho e do percurso do aluno na unidade curricular, o Conselho deliberou, por unanimidade, pela <strong>${deliberacaoOpcao}</strong> do aluno <strong>${aluno}</strong>, R.A. <strong>${ra}</strong>, por Conselho de Classe.
+        </p>
+        `;
+    }
+
+    // SVG do Logotipo Oficial SENAI
     let logoSenaiSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" width="220" height="55">
         <rect width="400" height="100" fill="#0056b3"/>
         <line x1="0" y1="20" x2="30" y2="20" stroke="#fff" stroke-width="4"/>
@@ -224,7 +290,7 @@ function gerarAta() {
     <html lang="pt-BR">
     <head>
         <meta charset="UTF-8">
-        <title>Ata de Conselho - ${aluno}</title>
+        <title>Ata de Conselho - ${curso}</title>
         <style>
             body { font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.4; padding: 30px; max-width: 800px; margin: auto; }
             .timbrado { text-align: center; margin-bottom: 15px; }
@@ -262,7 +328,7 @@ function gerarAta() {
 
         <table class="info-table">
             <tr>
-                <td colspan="2"><strong>Curso:</strong> ${curso}</td>
+                <td colspan="2"><strong>Curso:</strong> ${tipoCurso} em ${curso}</td>
             </tr>
             <tr>
                 <td colspan="2"><strong>Turma:</strong> ${turma}</td>
@@ -282,36 +348,7 @@ function gerarAta() {
             ${textoMembrosFormatado}
         </p>
 
-        <p class="texto-paragrafo">
-            O Conselho de Classe analisou, com base na Ata de Resultado Final da turma e considerando os critérios regimentais da instituição — que estabelecem a média 7,0 (sete) para aprovação direta e a frequência mínima de 75% (setenta e cinco por cento) em cada Unidade Curricular (UC) —, a situação do aluno abaixo relacionado:
-        </p>
-
-        <table class="dados-tabela">
-            <thead>
-                <tr>
-                    <th>R.A.</th>
-                    <th>Aluno</th>
-                    <th>Unidade Curricular</th>
-                    <th>Nota</th>
-                    <th>Faltas</th>
-                    <th>Frequência</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>${ra}</td>
-                    <td>${aluno}</td>
-                    <td>${uc}</td>
-                    <td>${nota}</td>
-                    <td>${faltas}</td>
-                    <td>${frequencia}</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <p class="texto-paragrafo">
-            Após a análise do desempenho e do percurso do aluno na unidade curricular, o Conselho deliberou, por unanimidade, pela <strong>${deliberacao}</strong> do aluno <strong>${aluno}</strong>, R.A. <strong>${ra}</strong>, por Conselho de Classe.
-        </p>
+        ${blocoTabelaETexto}
 
         <p class="texto-paragrafo">
             Nada mais havendo a tratar, foi encerrada a reunião, e a presente ata, lida e aprovada, vai assinada pelos membros presentes.
