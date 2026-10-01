@@ -181,9 +181,9 @@ function gerarAta() {
 
     // Montar texto dos membros presentes
     let membrosTexto = [];
-    if(pedagogo) membrosTexto.push(`<strong>${pedagogo}</strong>, Orientadora Pedagógica`);
-    if(assistente) membrosTexto.push(`<strong>${assistente}</strong>, Assistente Pedagógico`);
-    if(supervisor) membrosTexto.push(`<strong>${supervisor}</strong>, Supervisora de Área`);
+    if(pedagogo) membrosTexto.push(`<strong>${pedagogo}</strong>, Orientador(a) Pedagógico(a)`);
+    if(assistente) membrosTexto.push(`<strong>${assistente}</strong>, Assistente Pedagógico(a)`);
+    if(supervisor) membrosTexto.push(`<strong>${supervisor}</strong>, Supervisor(a) de Área`);
     
     if(tecsLista.length > 0) {
         let rotulo = tecsLista.length > 1 ? "Técnicos de Ensino" : "Técnico de Ensino";
@@ -195,9 +195,9 @@ function gerarAta() {
 
     // Montar blocos de assinatura
     let assinaturasHtml = '';
-    if(pedagogo) assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${pedagogo}</strong><br>Orientadora Pedagógica</div>`;
-    if(assistente) assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${assistente}</strong><br>Assistente Pedagógico</div>`;
-    if(supervisor) assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${supervisor}</strong><br>Supervisora de Área</div>`;
+    if(pedagogo) assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${pedagogo}</strong><br>Orientador(a) Pedagógico(a)</div>`;
+    if(assistente) assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${assistente}</strong><br>Assistente Pedagógico(a)</div>`;
+    if(supervisor) assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${supervisor}</strong><br>Supervisor(a) de Área</div>`;
     
     tecsLista.forEach(nomeTec => {
         assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${nomeTec}</strong><br>Técnico de Ensino</div>`;
