@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Ata de Conselho - SENAI PR</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 15px; background-color: #f4f4f9; color: #333; }
+        .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h2 { color: #0056b3; text-align: center; font-size: 1.2rem; }
+        label { font-weight: bold; display: block; margin-top: 12px; font-size: 0.9rem; }
+        input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1rem; }
+        textarea { height: 90px; resize: vertical; }
+        button { width: 100%; background-color: #0056b3; color: white; border: none; padding: 12px; font-size: 1rem; font-weight: bold; border-radius: 4px; margin-top: 20px; cursor: pointer; }
+        button:hover { background-color: #003d80; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Ata de Conselho de Classe - SENAI PR</h2>
+    
+    <label>Unidade Operacional SENAI:</label>
+    <input type="text" id="unidade" placeholder="Ex: SENAI Curitiba">
+
+    <label>Curso:</label>
+    <input type="text" id="curso" placeholder="Ex: Técnico em Eletrotécnica">
+
+    <label>Turma / Código:</label>
+    <input type="text" id="turma" placeholder="Ex: ELT-2026-1N">
+
+    <label>Unidade Curricular (Disciplina):</label>
+    <input type="text" id="disciplina" placeholder="Ex: Instalações Elétricas">
+
+    <label>Docente Responsável:</label>
+    <input type="text" id="docente" placeholder="Nome do Professor">
+
+    <label>Data e Horário:</label>
+    <input type="text" id="data" placeholder="Ex: 01/10/2026 às 14:00">
+
+    <label>Etapa Avaliativa:</label>
+    <select id="etapa">
+        <option>1ª Etapa / Módulo</option>
+        <option>2ª Etapa / Módulo</option>
+        <option>3ª Etapa / Módulo</option>
+        <option>Conselho Final / Conclusão de UC</option>
+    </select>
+
+    <label>Participantes Presentes:</label>
+    <textarea id="participantes" placeholder="Lista dos presentes (Docente, Pedagogo, Coordenador)"></textarea>
+
+    <label>Análise de Desempenho e Frequência:</label>
+    <textarea id="desempenho" placeholder="Regras do Regimento SENAI: Rendimento por competência, notas, faltas e casos específicos de alunos."></textarea>
+
+    <label>Encaminhamentos / Planos de Ação:</label>
+    <textarea id="encaminhamentos" placeholder="Registrar: Recuperação paralela/contínua, atendimento pedagógico, notificações."></textarea>
+
+    <button onclick="gerarAta()">Gerar Ata para Copiar / Imprimir</button>
+</div>
+
+<script>
+function gerarAta() {
+    let unidade = document.getElementById('unidade').value || '[Unidade Operacional]';
+    let curso = document.getElementById('curso').value || '[Curso]';
+    let turma = document.getElementById('turma').value || '[Turma]';
+    let disciplina = document.getElementById('disciplina').value || '[Disciplina]';
+    let docente = document.getElementById('docente').value || '[Docente]';
+    let data = document.getElementById('data').value || '[Data/Hora]';
+    let etapa = document.getElementById('etapa').value;
+    let participantes = document.getElementById('participantes').value || 'Docente do componente, Orientação Pedagógica e Coordenação.';
+    let desempenho = document.getElementById('desempenho').value || 'Sem destaques registrados.';
+    let encaminhamentos = document.getElementById('encaminhamentos').value || 'Sem encaminhamentos adicionais.';
+
+    let textoAta = `
+SERVIÇO NACIONAL DE APRENDIZAGEM INDUSTRIAL - SENAI PR
+REGIMENTO ESCOLAR - ATA DE REUNIÃO DO CONSELHO DE CLASSE
+
+1. IDENTIFICAÇÃO DA TURMA E COMPONENTE CURRICULAR
+• Unidade Operacional: ${unidade}
+• Curso: ${curso}
+• Turma / Código: ${turma}
+• Unidade Curricular: ${disciplina}
+• Docente Responsável: ${docente}
+• Etapa Avaliativa: ${etapa}
+• Data e Horário: ${data}
+
+2. PARTICIPANTES PRESENTES
+${participantes}
+
+3. PAUTA E FUNDAMENTAÇÃO REGIMENTAL
+A presente reunião cumpre as determinações do Regimento Escolar do SENAI PR para análise processual e somativa do aprendizado, verificação do alcance das competências do perfil profissional, acompanhamento de frequência e definição de estratégias de recuperação contínua.
+
+4. ANÁLISE DE DESEMPENHO E FREQUÊNCIA
+${desempenho}
+
+5. ENCAMINHAMENTOS E PLANO DE AÇÃO PEDAGÓGICA
+${encaminhamentos}
+
+6. ENCERRAMENTO E VALIDAÇÃO
+Nada mais havendo a tratar, encerrou-se a reunião e lavrou-se a presente ata.
+
+____________________________________________
+Docente Responsável pelo Componente Curricular
+
+____________________________________________
+Orientação Pedagógica / Coordenação de Ensino - SENAI PR
+    `;
+
+    let janela = window.open('', '', 'width=700,height=900');
+    janela.document.write('<pre style="white-space: pre-wrap; font-family: Arial; padding: 20px;">' + textoAta + '</pre>');
+    janela.document.write('<button onclick="window.print()" style="margin:20px; padding:10px 20px; font-size:16px;">Imprimir / Salvar em PDF</button>');
+}
+</script>
+
+</body>
+</html>
