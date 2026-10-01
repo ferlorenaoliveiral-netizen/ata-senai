@@ -79,24 +79,24 @@
     </fieldset>
 
     <fieldset>
-        <legend>3. Técnicos de Ensino / Docentes (Até 6 membros)</legend>
-        <label>Técnico de Ensino 1:</label>
-        <input type="text" id="tec1" placeholder="Nome do Técnico de Ensino / Docente 1">
+        <legend>3. Técnicos de Ensino (Até 6 membros)</legend>
+        <label>Técnico(a) de Ensino 1:</label>
+        <input type="text" id="tec1" placeholder="Ex: Edson Antonio Ribas Soares">
 
-        <label>Técnico de Ensino 2:</label>
-        <input type="text" id="tec2" placeholder="Nome do Técnico de Ensino / Docente 2 (opcional)">
+        <label>Técnico(a) de Ensino 2:</label>
+        <input type="text" id="tec2" placeholder="Nome do Técnico de Ensino 2 (opcional)">
 
-        <label>Técnico de Ensino 3:</label>
-        <input type="text" id="tec3" placeholder="Nome do Técnico de Ensino / Docente 3 (opcional)">
+        <label>Técnico(a) de Ensino 3:</label>
+        <input type="text" id="tec3" placeholder="Nome do Técnico de Ensino 3 (opcional)">
 
-        <label>Técnico de Ensino 4:</label>
-        <input type="text" id="tec4" placeholder="Nome do Técnico de Ensino / Docente 4 (opcional)">
+        <label>Técnico(a) de Ensino 4:</label>
+        <input type="text" id="tec4" placeholder="Nome do Técnico de Ensino 4 (opcional)">
 
-        <label>Técnico de Ensino 5:</label>
-        <input type="text" id="tec5" placeholder="Nome do Técnico de Ensino / Docente 5 (opcional)">
+        <label>Técnico(a) de Ensino 5:</label>
+        <input type="text" id="tec5" placeholder="Nome do Técnico de Ensino 5 (opcional)">
 
-        <label>Técnico de Ensino 6:</label>
-        <input type="text" id="tec6" placeholder="Nome do Técnico de Ensino / Docente 6 (opcional)">
+        <label>Técnico(a) de Ensino 6:</label>
+        <input type="text" id="tec6" placeholder="Nome do Técnico de Ensino 6 (opcional)">
     </fieldset>
 
     <fieldset>
@@ -171,22 +171,24 @@ function gerarAta() {
     let dataAssinatura = document.getElementById('dataAssinatura').value || 'Telêmaco Borba, 29 de setembro de 2026.';
 
     // Coleta dos 6 Técnicos de Ensino
-    let tec1 = document.getElementById('tec1').value.trim();
-    let tec2 = document.getElementById('tec2').value.trim();
-    let tec3 = document.getElementById('tec3').value.trim();
-    let tec4 = document.getElementById('tec4').value.trim();
-    let tec5 = document.getElementById('tec5').value.trim();
-    let tec6 = document.getElementById('tec6').value.trim();
+    let tecsLista = [
+        document.getElementById('tec1').value.trim(),
+        document.getElementById('tec2').value.trim(),
+        document.getElementById('tec3').value.trim(),
+        document.getElementById('tec4').value.trim(),
+        document.getElementById('tec5').value.trim(),
+        document.getElementById('tec6').value.trim()
+    ].filter(nome => nome !== "");
 
-    // Montar texto dos presentes
+    // Montar texto dos membros presentes
     let membrosTexto = [];
     if(pedagogo) membrosTexto.push(`<strong>${pedagogo}</strong>, Orientadora Pedagógica`);
     if(assistente) membrosTexto.push(`<strong>${assistente}</strong>, Assistente Pedagógico`);
     if(supervisor) membrosTexto.push(`<strong>${supervisor}</strong>, Supervisora de Área`);
     
-    let tecsLista = [tec1, tec2, tec3, tec4, tec5, tec6].filter(n => n !== "");
     if(tecsLista.length > 0) {
-        membrosTexto.push(`<strong>${tecsLista.join(', ')}</strong>, Técnico(s) de Ensino`);
+        let rotuloTec = tecsLista.length > 1 ? "Técnicos de Ensino" : "Técnico de Ensino";
+        membrosTexto.push(`<strong>${tecsLista.join('; ')}</strong>, ${rotuloTec}`);
     }
     if(secretaria) membrosTexto.push(`<strong>${secretaria}</strong>, representante da Secretaria`);
 
@@ -204,7 +206,7 @@ function gerarAta() {
         assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${supervisor}</strong><br>Supervisora de Área</div>`;
     }
     
-    // Assinaturas dos Técnicos de Ensino preenchidos
+    // Bloco de Assinaturas para cada Técnico de Ensino
     tecsLista.forEach(nomeTec => {
         assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${nomeTec}</strong><br>Técnico de Ensino</div>`;
     });
