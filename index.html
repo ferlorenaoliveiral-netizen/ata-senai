@@ -6,7 +6,7 @@
     <title>Ata de Conselho de Classe - SENAI</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 15px; background-color: #f4f4f9; color: #333; }
-        .container { max-width: 680px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .container { max-width: 720px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         h2 { color: #0056b3; text-align: center; font-size: 1.2rem; margin-bottom: 5px; }
         p.sub { text-align: center; color: #666; font-size: 0.85rem; margin-top: 0; }
         fieldset { border: 1px solid #ddd; border-radius: 6px; padding: 12px; margin-bottom: 15px; background: #fafafa; }
@@ -17,11 +17,14 @@
         .col { flex: 1; }
         button { width: 100%; background-color: #0056b3; color: white; border: none; padding: 12px; font-size: 1rem; font-weight: bold; border-radius: 4px; margin-top: 10px; cursor: pointer; }
         button:hover { background-color: #003d80; }
-        .btn-secundario { background-color: #28a745; margin-top: 8px; font-size: 0.9rem; padding: 8px; }
-        .btn-secundario:hover { background-color: #218838; }
-        .btn-remover { background-color: #dc3545; margin-top: 8px; font-size: 0.9rem; padding: 8px; }
+        .btn-secundario { background-color: #0056b3; margin-top: 8px; font-size: 0.85rem; padding: 6px 12px; }
+        .btn-secundario:hover { background-color: #003d80; }
+        .btn-add-aluno { background-color: #28a745; margin-top: 8px; font-size: 0.9rem; padding: 10px; }
+        .btn-add-aluno:hover { background-color: #218838; }
+        .btn-remover { background-color: #dc3545; margin-top: 8px; font-size: 0.9rem; padding: 10px; }
         .btn-remover:hover { background-color: #c82333; }
-        .aluno-card { border: 1px dashed #0056b3; padding: 10px; margin-bottom: 12px; border-radius: 6px; background-color: #fff; }
+        .aluno-card { border: 1px dashed #0056b3; padding: 12px; margin-bottom: 15px; border-radius: 6px; background-color: #fff; }
+        .uc-box { border: 1px solid #e0e0e0; padding: 10px; margin-top: 10px; border-radius: 4px; background-color: #fcfcfc; }
     </style>
 </head>
 <body>
@@ -118,15 +121,15 @@
     <fieldset>
         <legend>4. Dados do Aluno e Unidade Curricular</legend>
         
-        <label style="margin-bottom: 8px;">
+        <label style="margin-bottom: 12px; cursor: pointer;">
             <input type="checkbox" id="chkSemReprovados" onchange="toggleSemReprovados()" style="width: auto; display: inline-block;"> 
             <strong>Marque aqui se NÃO HOUVER alunos reprovados nesta ata</strong>
         </label>
 
         <div id="containerAlunos">
-            <!-- Bloco do primeiro aluno -->
+            <!-- Aluno #1 -->
             <div class="aluno-card" id="alunoCard_1">
-                <strong style="color: #0056b3;">Aluno / UC #1</strong>
+                <strong style="color: #0056b3; font-size: 1rem;">Aluno #1</strong>
                 <div class="row">
                     <div class="col" style="flex: 0.8;">
                         <label>R.A.:</label>
@@ -138,39 +141,47 @@
                     </div>
                 </div>
 
-                <label>Unidade Curricular (UC):</label>
-                <input type="text" class="input-uc" placeholder="Ex: Comunicação Oral e Escrita – 48h (EAD)">
+                <!-- Container de UCs para o Aluno #1 -->
+                <div class="ucs-container">
+                    <div class="uc-box">
+                        <strong style="color: #555; font-size: 0.85rem;">Unidade Curricular #1</strong>
+                        <label>Nome da UC:</label>
+                        <input type="text" class="input-uc" placeholder="Ex: Comunicação Oral e Escrita – 48h (EAD)">
 
-                <div class="row">
-                    <div class="col">
-                        <label>Nota Final:</label>
-                        <input type="text" class="input-nota" placeholder="Ex: 5,0">
-                    </div>
-                    <div class="col">
-                        <label>Faltas:</label>
-                        <input type="text" class="input-faltas" placeholder="Ex: 0">
-                    </div>
-                    <div class="col">
-                        <label>Frequência (%):</label>
-                        <input type="text" class="input-freq" placeholder="Ex: 100%">
+                        <div class="row">
+                            <div class="col">
+                                <label>Nota Final:</label>
+                                <input type="text" class="input-nota" placeholder="Ex: 5,0">
+                            </div>
+                            <div class="col">
+                                <label>Faltas:</label>
+                                <input type="text" class="input-faltas" placeholder="Ex: 0">
+                            </div>
+                            <div class="col">
+                                <label>Frequência (%):</label>
+                                <input type="text" class="input-freq" placeholder="Ex: 100%">
+                            </div>
+                        </div>
+
+                        <label>Decisão do Conselho para esta UC:</label>
+                        <select class="input-deliberacao">
+                            <option value="APROVAÇÃO">APROVAÇÃO por Conselho de Classe</option>
+                            <option value="RETENÇÃO">RETENÇÃO por Conselho de Classe</option>
+                            <option value="REASSINATURA DE PLANO">Aguardando Plano de Recuperação</option>
+                        </select>
                     </div>
                 </div>
 
-                <label>Decisão do Conselho para este Aluno:</label>
-                <select class="input-deliberacao">
-                    <option value="APROVAÇÃO">APROVAÇÃO por Conselho de Classe</option>
-                    <option value="RETENÇÃO">RETENÇÃO por Conselho de Classe</option>
-                    <option value="REASSINATURA DE PLANO">Aguardando Plano de Recuperação</option>
-                </select>
+                <button type="button" class="btn-secundario" onclick="adicionarUc(this)">+ Adicionar Outra UC para este Aluno</button>
             </div>
         </div>
 
         <div class="row" id="botoesAlunos">
             <div class="col">
-                <button type="button" class="btn-secundario" onclick="adicionarAlunoCard()">+ Adicionar Outro Aluno / UC</button>
+                <button type="button" class="btn-add-aluno" onclick="adicionarAlunoCard()">+ Adicionar Outro Aluno</button>
             </div>
             <div class="col">
-                <button type="button" class="btn-remover" onclick="removerUltimoAlunoCard()">- Remover Último</button>
+                <button type="button" class="btn-remover" onclick="removerUltimoAlunoCard()">- Remover Último Aluno</button>
             </div>
         </div>
     </fieldset>
@@ -194,7 +205,7 @@ function adicionarAlunoCard() {
     novoCard.className = 'aluno-card';
     novoCard.id = `alunoCard_${contadorAlunos}`;
     novoCard.innerHTML = `
-        <strong style="color: #0056b3;">Aluno / UC #${contadorAlunos}</strong>
+        <strong style="color: #0056b3; font-size: 1rem;">Aluno #${contadorAlunos}</strong>
         <div class="row">
             <div class="col" style="flex: 0.8;">
                 <label>R.A.:</label>
@@ -206,8 +217,55 @@ function adicionarAlunoCard() {
             </div>
         </div>
 
-        <label>Unidade Curricular (UC):</label>
-        <input type="text" class="input-uc" placeholder="Ex: Unidade Curricular">
+        <div class="ucs-container">
+            <div class="uc-box">
+                <strong style="color: #555; font-size: 0.85rem;">Unidade Curricular #1</strong>
+                <label>Nome da UC:</label>
+                <input type="text" class="input-uc" placeholder="Ex: Unidade Curricular">
+
+                <div class="row">
+                    <div class="col">
+                        <label>Nota Final:</label>
+                        <input type="text" class="input-nota" placeholder="Ex: 5,0">
+                    </div>
+                    <div class="col">
+                        <label>Faltas:</label>
+                        <input type="text" class="input-faltas" placeholder="Ex: 0">
+                    </div>
+                    <div class="col">
+                        <label>Frequência (%):</label>
+                        <input type="text" class="input-freq" placeholder="Ex: 100%">
+                    </div>
+                </div>
+
+                <label>Decisão do Conselho para esta UC:</label>
+                <select class="input-deliberacao">
+                    <option value="APROVAÇÃO">APROVAÇÃO por Conselho de Classe</option>
+                    <option value="RETENÇÃO">RETENÇÃO por Conselho de Classe</option>
+                    <option value="REASSINATURA DE PLANO">Aguardando Plano de Recuperação</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="button" class="btn-secundario" onclick="adicionarUc(this)">+ Adicionar Outra UC para este Aluno</button>
+    `;
+    container.appendChild(novoCard);
+}
+
+function adicionarUc(btn) {
+    let card = btn.closest('.aluno-card');
+    let ucsContainer = card.querySelector('.ucs-container');
+    let numUcs = ucsContainer.querySelectorAll('.uc-box').length + 1;
+
+    let novaUc = document.createElement('div');
+    novaUc.className = 'uc-box';
+    novaUc.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color: #555; font-size: 0.85rem;">Unidade Curricular #${numUcs}</strong>
+            <span style="color:#dc3545; cursor:pointer; font-size:0.8rem; font-weight:bold;" onclick="this.closest('.uc-box').remove()">[Remover UC]</span>
+        </div>
+        <label>Nome da UC:</label>
+        <input type="text" class="input-uc" placeholder="Ex: Outra Unidade Curricular">
 
         <div class="row">
             <div class="col">
@@ -224,14 +282,14 @@ function adicionarAlunoCard() {
             </div>
         </div>
 
-        <label>Decisão do Conselho para este Aluno:</label>
+        <label>Decisão do Conselho para esta UC:</label>
         <select class="input-deliberacao">
             <option value="APROVAÇÃO">APROVAÇÃO por Conselho de Classe</option>
             <option value="RETENÇÃO">RETENÇÃO por Conselho de Classe</option>
             <option value="REASSINATURA DE PLANO">Aguardando Plano de Recuperação</option>
         </select>
     `;
-    container.appendChild(novoCard);
+    ucsContainer.appendChild(novaUc);
 }
 
 function removerUltimoAlunoCard() {
@@ -332,24 +390,41 @@ function gerarAta() {
         cards.forEach((card) => {
             let ra = card.querySelector('.input-ra').value || 'N/A';
             let aluno = card.querySelector('.input-aluno').value || 'N/A';
-            let uc = card.querySelector('.input-uc').value || '[Unidade Curricular]';
-            let nota = card.querySelector('.input-nota').value || '-';
-            let faltas = card.querySelector('.input-faltas').value || '-';
-            let freq = card.querySelector('.input-freq').value || '-';
-            let deliberacao = card.querySelector('.input-deliberacao').value;
+            let ucBoxes = card.querySelectorAll('.uc-box');
 
-            linhasTabela += `
-                <tr>
-                    <td>${ra}</td>
-                    <td>${aluno}</td>
-                    <td>${uc}</td>
-                    <td>${nota}</td>
-                    <td>${faltas}</td>
-                    <td>${freq}</td>
-                </tr>
-            `;
+            let numUcsAluno = ucBoxes.length;
 
-            decisoesTexto.push(`pela <strong>${deliberacao}</strong> do aluno(a) <strong>${aluno}</strong> (R.A. <strong>${ra}</strong>) na Unidade Curricular <strong>${uc}</strong>`);
+            ucBoxes.forEach((ucBox, index) => {
+                let uc = ucBox.querySelector('.input-uc').value || '[Unidade Curricular]';
+                let nota = ucBox.querySelector('.input-nota').value || '-';
+                let faltas = ucBox.querySelector('.input-faltas').value || '-';
+                let freq = ucBox.querySelector('.input-freq').value || '-';
+                let deliberacao = ucBox.querySelector('.input-deliberacao').value;
+
+                if (index === 0) {
+                    linhasTabela += `
+                        <tr>
+                            <td rowspan="${numUcsAluno}">${ra}</td>
+                            <td rowspan="${numUcsAluno}">${aluno}</td>
+                            <td>${uc}</td>
+                            <td>${nota}</td>
+                            <td>${faltas}</td>
+                            <td>${freq}</td>
+                        </tr>
+                    `;
+                } else {
+                    linhasTabela += `
+                        <tr>
+                            <td>${uc}</td>
+                            <td>${nota}</td>
+                            <td>${faltas}</td>
+                            <td>${freq}</td>
+                        </tr>
+                    `;
+                }
+
+                decisoesTexto.push(`pela <strong>${deliberacao}</strong> do aluno(a) <strong>${aluno}</strong> (R.A. <strong>${ra}</strong>) na Unidade Curricular <strong>${uc}</strong>`);
+            });
         });
 
         blocoTabelaETexto = `
