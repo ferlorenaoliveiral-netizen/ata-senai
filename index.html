@@ -126,7 +126,7 @@
         <input type="text" id="dataAssinatura" placeholder="Ex: Telêmaco Borba, 29 de setembro de 2026.">
     </fieldset>
 
-    <button onclick="gerarAta()">Gerar Ata Formatada</button>
+    <button onclick="gerarAta()">Gerar Ata Timbrada</button>
 </div>
 
 <script>
@@ -159,9 +159,11 @@ function gerarAta() {
         <title>Ata de Conselho - ${aluno}</title>
         <style>
             body { font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.4; padding: 30px; max-width: 800px; margin: auto; }
+            .timbrado { text-align: center; margin-bottom: 15px; }
+            .timbrado img { height: 60px; width: auto; margin-bottom: 5px; }
             .header { text-align: center; font-weight: bold; margin-bottom: 20px; }
-            .header div { font-size: 12pt; }
-            .header .title { font-size: 13pt; margin-top: 5px; text-decoration: underline; }
+            .header div { font-size: 11pt; }
+            .header .title { font-size: 13pt; margin-top: 8px; text-decoration: underline; }
             .info-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
             .info-table td { padding: 4px 0; }
             .dados-tabela { width: 100%; border-collapse: collapse; margin: 15px 0; text-align: center; }
@@ -180,6 +182,10 @@ function gerarAta() {
     </head>
     <body>
         <button onclick="window.print()" style="margin-bottom:20px; padding:10px 20px; font-size:14px; cursor:pointer;">Imprimir / Salvar em PDF</button>
+
+        <div class="timbrado">
+            <img src="logo-senai.png" alt="SENAI" onerror="this.style.display='none'">
+        </div>
 
         <div class="header">
             <div>SENAI – Serviço Nacional de Aprendizagem Industrial</div>
