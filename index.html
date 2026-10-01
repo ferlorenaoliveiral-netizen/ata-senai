@@ -13,7 +13,6 @@
         legend { font-weight: bold; color: #0056b3; padding: 0 5px; font-size: 0.95rem; }
         label { font-weight: bold; display: block; margin-top: 8px; font-size: 0.85rem; }
         input, select, textarea { width: 100%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem; }
-        textarea { height: 70px; resize: vertical; }
         .row { display: flex; gap: 10px; }
         .col { flex: 1; }
         button { width: 100%; background-color: #0056b3; color: white; border: none; padding: 12px; font-size: 1rem; font-weight: bold; border-radius: 4px; margin-top: 10px; cursor: pointer; }
@@ -79,24 +78,24 @@
     </fieldset>
 
     <fieldset>
-        <legend>3. Técnicos de Ensino (Até 6 membros)</legend>
+        <legend>3. Técnicos de Ensino (Preencha até 6)</legend>
         <label>Técnico(a) de Ensino 1:</label>
         <input type="text" id="tec1" placeholder="Ex: Edson Antonio Ribas Soares">
 
         <label>Técnico(a) de Ensino 2:</label>
-        <input type="text" id="tec2" placeholder="Nome do Técnico de Ensino 2 (opcional)">
+        <input type="text" id="tec2" placeholder="Nome do Técnico 2 (opcional)">
 
         <label>Técnico(a) de Ensino 3:</label>
-        <input type="text" id="tec3" placeholder="Nome do Técnico de Ensino 3 (opcional)">
+        <input type="text" id="tec3" placeholder="Nome do Técnico 3 (opcional)">
 
         <label>Técnico(a) de Ensino 4:</label>
-        <input type="text" id="tec4" placeholder="Nome do Técnico de Ensino 4 (opcional)">
+        <input type="text" id="tec4" placeholder="Nome do Técnico 4 (opcional)">
 
         <label>Técnico(a) de Ensino 5:</label>
-        <input type="text" id="tec5" placeholder="Nome do Técnico de Ensino 5 (opcional)">
+        <input type="text" id="tec5" placeholder="Nome do Técnico 5 (opcional)">
 
         <label>Técnico(a) de Ensino 6:</label>
-        <input type="text" id="tec6" placeholder="Nome do Técnico de Ensino 6 (opcional)">
+        <input type="text" id="tec6" placeholder="Nome do Técnico 6 (opcional)">
     </fieldset>
 
     <fieldset>
@@ -140,7 +139,7 @@
             <option value="REASSINATURA DE PLANO">Aguardando Plano de Recuperação</option>
         </select>
 
-        <label>Data Final (Cidade e Data para a Assinatura):</label>
+        <label>Data Final (Cidade e Data para Assinatura):</label>
         <input type="text" id="dataAssinatura" placeholder="Ex: Telêmaco Borba, 29 de setembro de 2026.">
     </fieldset>
 
@@ -178,7 +177,7 @@ function gerarAta() {
         document.getElementById('tec4').value.trim(),
         document.getElementById('tec5').value.trim(),
         document.getElementById('tec6').value.trim()
-    ].filter(nome => nome !== "");
+    ].filter(n => n !== "");
 
     // Montar texto dos membros presentes
     let membrosTexto = [];
@@ -187,8 +186,8 @@ function gerarAta() {
     if(supervisor) membrosTexto.push(`<strong>${supervisor}</strong>, Supervisora de Área`);
     
     if(tecsLista.length > 0) {
-        let rotuloTec = tecsLista.length > 1 ? "Técnicos de Ensino" : "Técnico de Ensino";
-        membrosTexto.push(`<strong>${tecsLista.join('; ')}</strong>, ${rotuloTec}`);
+        let rotulo = tecsLista.length > 1 ? "Técnicos de Ensino" : "Técnico de Ensino";
+        membrosTexto.push(`<strong>${tecsLista.join('; ')}</strong>, ${rotulo}`);
     }
     if(secretaria) membrosTexto.push(`<strong>${secretaria}</strong>, representante da Secretaria`);
 
@@ -196,24 +195,29 @@ function gerarAta() {
 
     // Montar blocos de assinatura
     let assinaturasHtml = '';
-    if(pedagogo) {
-        assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${pedagogo}</strong><br>Orientadora Pedagógica</div>`;
-    }
-    if(assistente) {
-        assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${assistente}</strong><br>Assistente Pedagógico</div>`;
-    }
-    if(supervisor) {
-        assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${supervisor}</strong><br>Supervisora de Área</div>`;
-    }
+    if(pedagogo) assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${pedagogo}</strong><br>Orientadora Pedagógica</div>`;
+    if(assistente) assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${assistente}</strong><br>Assistente Pedagógico</div>`;
+    if(supervisor) assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${supervisor}</strong><br>Supervisora de Área</div>`;
     
-    // Bloco de Assinaturas para cada Técnico de Ensino
     tecsLista.forEach(nomeTec => {
         assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${nomeTec}</strong><br>Técnico de Ensino</div>`;
     });
 
-    if(secretaria) {
-        assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${secretaria}</strong><br>Secretaria</div>`;
-    }
+    if(secretaria) assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${secretaria}</strong><br>Secretaria</div>`;
+
+    // SVG do Logotipo Oficial SENAI embutido diretamente no código
+    let logoSenaiSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" width="220" height="55">
+        <rect width="400" height="100" fill="#0056b3"/>
+        <line x1="0" y1="20" x2="30" y2="20" stroke="#fff" stroke-width="4"/>
+        <line x1="0" y1="40" x2="30" y2="40" stroke="#fff" stroke-width="4"/>
+        <line x1="0" y1="60" x2="30" y2="60" stroke="#fff" stroke-width="4"/>
+        <line x1="0" y1="80" x2="30" y2="80" stroke="#fff" stroke-width="4"/>
+        <line x1="370" y1="20" x2="400" y2="20" stroke="#fff" stroke-width="4"/>
+        <line x1="370" y1="40" x2="400" y2="40" stroke="#fff" stroke-width="4"/>
+        <line x1="370" y1="60" x2="400" y2="60" stroke="#fff" stroke-width="4"/>
+        <line x1="370" y1="80" x2="400" y2="80" stroke="#fff" stroke-width="4"/>
+        <text x="200" y="68" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="bold" font-style="italic" fill="#ffffff" text-anchor="middle">SENAI</text>
+    </svg>`;
 
     let htmlAta = `
     <html>
@@ -222,7 +226,6 @@ function gerarAta() {
         <style>
             body { font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.4; padding: 30px; max-width: 800px; margin: auto; }
             .timbrado { text-align: center; margin-bottom: 15px; }
-            .timbrado img { height: 60px; width: auto; margin-bottom: 5px; }
             .header { text-align: center; font-weight: bold; margin-bottom: 20px; }
             .header div { font-size: 11pt; }
             .header .title { font-size: 13pt; margin-top: 8px; text-decoration: underline; }
@@ -246,7 +249,7 @@ function gerarAta() {
         <button onclick="window.print()" style="margin-bottom:20px; padding:10px 20px; font-size:14px; cursor:pointer;">Imprimir / Salvar em PDF</button>
 
         <div class="timbrado">
-            <img src="logo-senai.png" alt="SENAI" onerror="this.style.display='none'">
+            ${logoSenaiSvg}
         </div>
 
         <div class="header">
