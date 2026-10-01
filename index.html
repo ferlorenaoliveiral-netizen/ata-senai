@@ -6,7 +6,7 @@
     <title>Ata de Conselho de Classe - SENAI</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 15px; background-color: #f4f4f9; color: #333; }
-        .container { max-width: 650px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .container { max-width: 680px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         h2 { color: #0056b3; text-align: center; font-size: 1.2rem; margin-bottom: 5px; }
         p.sub { text-align: center; color: #666; font-size: 0.85rem; margin-top: 0; }
         fieldset { border: 1px solid #ddd; border-radius: 6px; padding: 12px; margin-bottom: 15px; background: #fafafa; }
@@ -61,7 +61,7 @@
     </fieldset>
 
     <fieldset>
-        <legend>2. Data e Participantes do Conselho</legend>
+        <legend>2. Equipe Pedagógica e Secretaria</legend>
         <label>Data por Extenso / Local:</label>
         <input type="text" id="dataExtenso" placeholder="Ex: Aos vinte e nove dias do mês de setembro de 2026">
 
@@ -74,15 +74,33 @@
         <label>Supervisor(a) de Área:</label>
         <input type="text" id="supervisor" value="Karina Cristiane Kendrick">
 
-        <label>Professor(a):</label>
-        <input type="text" id="professor" placeholder="Ex: Edson Antonio Ribas Soares">
-
         <label>Representante da Secretaria:</label>
         <input type="text" id="secretaria" value="Reinaldo José de Almeida">
     </fieldset>
 
     <fieldset>
-        <legend>3. Dados do Aluno e Unidade Curricular</legend>
+        <legend>3. Técnicos de Ensino / Docentes (Até 6 membros)</legend>
+        <label>Técnico de Ensino 1:</label>
+        <input type="text" id="tec1" placeholder="Nome do Técnico de Ensino / Docente 1">
+
+        <label>Técnico de Ensino 2:</label>
+        <input type="text" id="tec2" placeholder="Nome do Técnico de Ensino / Docente 2 (opcional)">
+
+        <label>Técnico de Ensino 3:</label>
+        <input type="text" id="tec3" placeholder="Nome do Técnico de Ensino / Docente 3 (opcional)">
+
+        <label>Técnico de Ensino 4:</label>
+        <input type="text" id="tec4" placeholder="Nome do Técnico de Ensino / Docente 4 (opcional)">
+
+        <label>Técnico de Ensino 5:</label>
+        <input type="text" id="tec5" placeholder="Nome do Técnico de Ensino / Docente 5 (opcional)">
+
+        <label>Técnico de Ensino 6:</label>
+        <input type="text" id="tec6" placeholder="Nome do Técnico de Ensino / Docente 6 (opcional)">
+    </fieldset>
+
+    <fieldset>
+        <legend>4. Dados do Aluno e Unidade Curricular</legend>
         <div class="row">
             <div class="col" style="flex: 0.8;">
                 <label>R.A.:</label>
@@ -114,7 +132,7 @@
     </fieldset>
 
     <fieldset>
-        <legend>4. Deliberação Final</legend>
+        <legend>5. Deliberação Final</legend>
         <label>Decisão do Conselho:</label>
         <select id="deliberacao">
             <option value="APROVAÇÃO">APROVAÇÃO por Conselho de Classe</option>
@@ -139,11 +157,10 @@ function gerarAta() {
     let periodo = document.getElementById('periodo').value || '[Período]';
     let periodoLetivo = document.getElementById('periodoLetivo').value || '[Período Letivo]';
     let dataExtenso = document.getElementById('dataExtenso').value || 'Nesta data';
-    let pedagogo = document.getElementById('pedagogo').value || 'Orientador Pedagógico';
-    let assistente = document.getElementById('assistente').value || 'Assistente Pedagógico';
-    let supervisor = document.getElementById('supervisor').value || 'Supervisor de Área';
-    let professor = document.getElementById('professor').value || 'Professor';
-    let secretaria = document.getElementById('secretaria').value || 'Secretaria';
+    let pedagogo = document.getElementById('pedagogo').value;
+    let assistente = document.getElementById('assistente').value;
+    let supervisor = document.getElementById('supervisor').value;
+    let secretaria = document.getElementById('secretaria').value;
     let ra = document.getElementById('ra').value || '[RA]';
     let aluno = document.getElementById('aluno').value || '[Aluno]';
     let uc = document.getElementById('uc').value || '[Unidade Curricular]';
@@ -152,6 +169,49 @@ function gerarAta() {
     let frequencia = document.getElementById('frequencia').value || '0%';
     let deliberacao = document.getElementById('deliberacao').value;
     let dataAssinatura = document.getElementById('dataAssinatura').value || 'Telêmaco Borba, 29 de setembro de 2026.';
+
+    // Coleta dos 6 Técnicos de Ensino
+    let tec1 = document.getElementById('tec1').value.trim();
+    let tec2 = document.getElementById('tec2').value.trim();
+    let tec3 = document.getElementById('tec3').value.trim();
+    let tec4 = document.getElementById('tec4').value.trim();
+    let tec5 = document.getElementById('tec5').value.trim();
+    let tec6 = document.getElementById('tec6').value.trim();
+
+    // Montar texto dos presentes
+    let membrosTexto = [];
+    if(pedagogo) membrosTexto.push(`<strong>${pedagogo}</strong>, Orientadora Pedagógica`);
+    if(assistente) membrosTexto.push(`<strong>${assistente}</strong>, Assistente Pedagógico`);
+    if(supervisor) membrosTexto.push(`<strong>${supervisor}</strong>, Supervisora de Área`);
+    
+    let tecsLista = [tec1, tec2, tec3, tec4, tec5, tec6].filter(n => n !== "");
+    if(tecsLista.length > 0) {
+        membrosTexto.push(`<strong>${tecsLista.join(', ')}</strong>, Técnico(s) de Ensino`);
+    }
+    if(secretaria) membrosTexto.push(`<strong>${secretaria}</strong>, representante da Secretaria`);
+
+    let textoMembrosFormatado = membrosTexto.join('; ') + '.';
+
+    // Montar blocos de assinatura
+    let assinaturasHtml = '';
+    if(pedagogo) {
+        assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${pedagogo}</strong><br>Orientadora Pedagógica</div>`;
+    }
+    if(assistente) {
+        assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${assistente}</strong><br>Assistente Pedagógico</div>`;
+    }
+    if(supervisor) {
+        assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${supervisor}</strong><br>Supervisora de Área</div>`;
+    }
+    
+    // Assinaturas dos Técnicos de Ensino preenchidos
+    tecsLista.forEach(nomeTec => {
+        assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${nomeTec}</strong><br>Técnico de Ensino</div>`;
+    });
+
+    if(secretaria) {
+        assinaturasHtml += `<div class="assinatura-box"><div class="linha"></div><strong>${secretaria}</strong><br>Secretaria</div>`;
+    }
 
     let htmlAta = `
     <html>
@@ -170,9 +230,9 @@ function gerarAta() {
             .dados-tabela th, .dados-tabela td { border: 1px solid #000; padding: 6px; font-size: 10pt; }
             .dados-tabela th { background-color: #f2f2f2; }
             .texto-paragrafo { text-align: justify; margin-bottom: 15px; text-indent: 30px; }
-            .assinaturas { margin-top: 40px; width: 100%; }
-            .assinaturas-grid { display: flex; flex-wrap: wrap; justify-content: space-between; row-gap: 30px; }
-            .assinatura-box { width: 45%; text-align: center; font-size: 9.5pt; }
+            .assinaturas { margin-top: 35px; width: 100%; }
+            .assinaturas-grid { display: flex; flex-wrap: wrap; justify-content: space-between; row-gap: 25px; }
+            .assinatura-box { width: 45%; text-align: center; font-size: 9pt; }
             .linha { border-top: 1px solid #000; margin-bottom: 4px; }
             @media print {
                 button { display: none; }
@@ -212,11 +272,7 @@ function gerarAta() {
 
         <p class="texto-paragrafo">
             ${dataExtenso}, no ${unidade}, reuniu-se o Conselho de Classe da turma acima identificada, com a presença dos seguintes membros: 
-            <strong>${pedagogo}</strong>, Orientadora Pedagógica; 
-            <strong>${assistente}</strong>, Assistente Pedagógico; 
-            <strong>${supervisor}</strong>, Supervisora de Área; 
-            <strong>${professor}</strong>, Professor; e 
-            <strong>${secretaria}</strong>, representante da Secretaria.
+            ${textoMembrosFormatado}
         </p>
 
         <p class="texto-paragrafo">
@@ -258,26 +314,7 @@ function gerarAta() {
 
         <div class="assinaturas">
             <div class="assinaturas-grid">
-                <div class="assinatura-box">
-                    <div class="linha"></div>
-                    <strong>${pedagogo}</strong><br>Orientadora Pedagógica
-                </div>
-                <div class="assinatura-box">
-                    <div class="linha"></div>
-                    <strong>${assistente}</strong><br>Assistente Pedagógico
-                </div>
-                <div class="assinatura-box">
-                    <div class="linha"></div>
-                    <strong>${supervisor}</strong><br>Supervisora de Área
-                </div>
-                <div class="assinatura-box">
-                    <div class="linha"></div>
-                    <strong>${professor}</strong><br>Professor
-                </div>
-                <div class="assinatura-box" style="margin: 0 auto;">
-                    <div class="linha"></div>
-                    <strong>${secretaria}</strong><br>Secretaria
-                </div>
+                ${assinaturasHtml}
             </div>
         </div>
     </body>
