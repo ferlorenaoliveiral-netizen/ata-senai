@@ -3,112 +3,284 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Ata de Conselho - SENAI PR</title>
+    <title>Ata de Conselho de Classe - SENAI</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 15px; background-color: #f4f4f9; color: #333; }
-        .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        h2 { color: #0056b3; text-align: center; font-size: 1.2rem; }
-        label { font-weight: bold; display: block; margin-top: 12px; font-size: 0.9rem; }
-        input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1rem; }
-        textarea { height: 90px; resize: vertical; }
-        button { width: 100%; background-color: #0056b3; color: white; border: none; padding: 12px; font-size: 1rem; font-weight: bold; border-radius: 4px; margin-top: 20px; cursor: pointer; }
+        .container { max-width: 650px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h2 { color: #0056b3; text-align: center; font-size: 1.2rem; margin-bottom: 5px; }
+        p.sub { text-align: center; color: #666; font-size: 0.85rem; margin-top: 0; }
+        fieldset { border: 1px solid #ddd; border-radius: 6px; padding: 12px; margin-bottom: 15px; background: #fafafa; }
+        legend { font-weight: bold; color: #0056b3; padding: 0 5px; font-size: 0.95rem; }
+        label { font-weight: bold; display: block; margin-top: 8px; font-size: 0.85rem; }
+        input, select, textarea { width: 100%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem; }
+        textarea { height: 70px; resize: vertical; }
+        .row { display: flex; gap: 10px; }
+        .col { flex: 1; }
+        button { width: 100%; background-color: #0056b3; color: white; border: none; padding: 12px; font-size: 1rem; font-weight: bold; border-radius: 4px; margin-top: 10px; cursor: pointer; }
         button:hover { background-color: #003d80; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Ata de Conselho de Classe - SENAI PR</h2>
+    <h2>SENAI - Conselho de Classe</h2>
+    <p class="sub">Gerador Oficial de Atas Deliberativas</p>
     
-    <label>Unidade Operacional SENAI:</label>
-    <input type="text" id="unidade" placeholder="Ex: SENAI Curitiba">
+    <fieldset>
+        <legend>1. Identificação da Unidade e Turma</legend>
+        <label>Unidade SENAI:</label>
+        <input type="text" id="unidade" value="SENAI Telêmaco Borba">
 
-    <label>Curso:</label>
-    <input type="text" id="curso" placeholder="Ex: Técnico em Eletrotécnica">
+        <label>Curso:</label>
+        <input type="text" id="curso" placeholder="Ex: Técnico em Celulose e Papel">
 
-    <label>Turma / Código:</label>
-    <input type="text" id="turma" placeholder="Ex: ELT-2026-1N">
+        <label>Nome / Identificação da Turma:</label>
+        <input type="text" id="turma" placeholder="Ex: 1º Mód. Téc. em Celulose e Papel – COE">
 
-    <label>Unidade Curricular (Disciplina):</label>
-    <input type="text" id="disciplina" placeholder="Ex: Instalações Elétricas">
+        <div class="row">
+            <div class="col">
+                <label>Cód. Turma:</label>
+                <input type="text" id="codTurma" placeholder="Ex: TEC-N-002106/2026">
+            </div>
+            <div class="col">
+                <label>Turno:</label>
+                <input type="text" id="turno" placeholder="Ex: Noturno">
+            </div>
+        </div>
 
-    <label>Docente Responsável:</label>
-    <input type="text" id="docente" placeholder="Nome do Professor">
+        <div class="row">
+            <div class="col">
+                <label>Período das Aulas:</label>
+                <input type="text" id="periodo" placeholder="Ex: 04/09/2026 a 25/09/2026">
+            </div>
+            <div class="col">
+                <label>Período Letivo:</label>
+                <input type="text" id="periodoLetivo" placeholder="Ex: 2026/DP">
+            </div>
+        </div>
+    </fieldset>
 
-    <label>Data e Horário:</label>
-    <input type="text" id="data" placeholder="Ex: 01/10/2026 às 14:00">
+    <fieldset>
+        <legend>2. Data e Participantes do Conselho</legend>
+        <label>Data por Extenso / Local:</label>
+        <input type="text" id="dataExtenso" placeholder="Ex: Aos vinte e nove dias do mês de setembro de 2026">
 
-    <label>Etapa Avaliativa:</label>
-    <select id="etapa">
-        <option>1ª Etapa / Módulo</option>
-        <option>2ª Etapa / Módulo</option>
-        <option>3ª Etapa / Módulo</option>
-        <option>Conselho Final / Conclusão de UC</option>
-    </select>
+        <label>Orientador(a) Pedagógico(a):</label>
+        <input type="text" id="pedagogo" value="Fernanda Lorena Oliveira">
 
-    <label>Participantes Presentes:</label>
-    <textarea id="participantes" placeholder="Lista dos presentes (Docente, Pedagogo, Coordenador)"></textarea>
+        <label>Assistente Pedagógico(a):</label>
+        <input type="text" id="assistente" value="Julia Thainá Gonçalves">
 
-    <label>Análise de Desempenho e Frequência:</label>
-    <textarea id="desempenho" placeholder="Regras do Regimento SENAI: Rendimento por competência, notas, faltas e casos específicos de alunos."></textarea>
+        <label>Supervisor(a) de Área:</label>
+        <input type="text" id="supervisor" value="Karina Cristiane Kendrick">
 
-    <label>Encaminhamentos / Planos de Ação:</label>
-    <textarea id="encaminhamentos" placeholder="Registrar: Recuperação paralela/contínua, atendimento pedagógico, notificações."></textarea>
+        <label>Professor(a):</label>
+        <input type="text" id="professor" placeholder="Ex: Edson Antonio Ribas Soares">
 
-    <button onclick="gerarAta()">Gerar Ata para Copiar / Imprimir</button>
+        <label>Representante da Secretaria:</label>
+        <input type="text" id="secretaria" value="Reinaldo José de Almeida">
+    </fieldset>
+
+    <fieldset>
+        <legend>3. Dados do Aluno e Unidade Curricular</legend>
+        <div class="row">
+            <div class="col" style="flex: 0.8;">
+                <label>R.A.:</label>
+                <input type="text" id="ra" placeholder="Ex: 01074504">
+            </div>
+            <div class="col" style="flex: 1.5;">
+                <label>Nome do Aluno:</label>
+                <input type="text" id="aluno" placeholder="Ex: Pedro Santana de Souza">
+            </div>
+        </div>
+
+        <label>Unidade Curricular (UC):</label>
+        <input type="text" id="uc" placeholder="Ex: Comunicação Oral e Escrita – 48h (EAD)">
+
+        <div class="row">
+            <div class="col">
+                <label>Nota Final:</label>
+                <input type="text" id="nota" placeholder="Ex: 5,0">
+            </div>
+            <div class="col">
+                <label>Faltas:</label>
+                <input type="text" id="faltas" placeholder="Ex: 0">
+            </div>
+            <div class="col">
+                <label>Frequência (%):</label>
+                <input type="text" id="frequencia" placeholder="Ex: 100%">
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>4. Deliberação Final</legend>
+        <label>Decisão do Conselho:</label>
+        <select id="deliberacao">
+            <option value="APROVAÇÃO">APROVAÇÃO por Conselho de Classe</option>
+            <option value="RETENÇÃO">RETENÇÃO por Conselho de Classe</option>
+            <option value="REASSINATURA DE PLANO">Aguardando Plano de Recuperação</option>
+        </select>
+
+        <label>Data Final (Cidade e Data para a Assinatura):</label>
+        <input type="text" id="dataAssinatura" placeholder="Ex: Telêmaco Borba, 29 de setembro de 2026.">
+    </fieldset>
+
+    <button onclick="gerarAta()">Gerar Ata Formatada</button>
 </div>
 
 <script>
 function gerarAta() {
-    let unidade = document.getElementById('unidade').value || '[Unidade Operacional]';
+    let unidade = document.getElementById('unidade').value || 'SENAI Telêmaco Borba';
     let curso = document.getElementById('curso').value || '[Curso]';
     let turma = document.getElementById('turma').value || '[Turma]';
-    let disciplina = document.getElementById('disciplina').value || '[Disciplina]';
-    let docente = document.getElementById('docente').value || '[Docente]';
-    let data = document.getElementById('data').value || '[Data/Hora]';
-    let etapa = document.getElementById('etapa').value;
-    let participantes = document.getElementById('participantes').value || 'Docente do componente, Orientação Pedagógica e Coordenação.';
-    let desempenho = document.getElementById('desempenho').value || 'Sem destaques registrados.';
-    let encaminhamentos = document.getElementById('encaminhamentos').value || 'Sem encaminhamentos adicionais.';
+    let codTurma = document.getElementById('codTurma').value || '[Cód]';
+    let turno = document.getElementById('turno').value || '[Turno]';
+    let periodo = document.getElementById('periodo').value || '[Período]';
+    let periodoLetivo = document.getElementById('periodoLetivo').value || '[Período Letivo]';
+    let dataExtenso = document.getElementById('dataExtenso').value || 'Nesta data';
+    let pedagogo = document.getElementById('pedagogo').value || 'Orientador Pedagógico';
+    let assistente = document.getElementById('assistente').value || 'Assistente Pedagógico';
+    let supervisor = document.getElementById('supervisor').value || 'Supervisor de Área';
+    let professor = document.getElementById('professor').value || 'Professor';
+    let secretaria = document.getElementById('secretaria').value || 'Secretaria';
+    let ra = document.getElementById('ra').value || '[RA]';
+    let aluno = document.getElementById('aluno').value || '[Aluno]';
+    let uc = document.getElementById('uc').value || '[Unidade Curricular]';
+    let nota = document.getElementById('nota').value || '0,0';
+    let faltas = document.getElementById('faltas').value || '0';
+    let frequencia = document.getElementById('frequencia').value || '0%';
+    let deliberacao = document.getElementById('deliberacao').value;
+    let dataAssinatura = document.getElementById('dataAssinatura').value || 'Telêmaco Borba, 29 de setembro de 2026.';
 
-    let textoAta = `
-SERVIÇO NACIONAL DE APRENDIZAGEM INDUSTRIAL - SENAI PR
-REGIMENTO ESCOLAR - ATA DE REUNIÃO DO CONSELHO DE CLASSE
+    let htmlAta = `
+    <html>
+    <head>
+        <title>Ata de Conselho - ${aluno}</title>
+        <style>
+            body { font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.4; padding: 30px; max-width: 800px; margin: auto; }
+            .header { text-align: center; font-weight: bold; margin-bottom: 20px; }
+            .header div { font-size: 12pt; }
+            .header .title { font-size: 13pt; margin-top: 5px; text-decoration: underline; }
+            .info-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+            .info-table td { padding: 4px 0; }
+            .dados-tabela { width: 100%; border-collapse: collapse; margin: 15px 0; text-align: center; }
+            .dados-tabela th, .dados-tabela td { border: 1px solid #000; padding: 6px; font-size: 10pt; }
+            .dados-tabela th { background-color: #f2f2f2; }
+            .texto-paragrafo { text-align: justify; margin-bottom: 15px; text-indent: 30px; }
+            .assinaturas { margin-top: 40px; width: 100%; }
+            .assinaturas-grid { display: flex; flex-wrap: wrap; justify-content: space-between; row-gap: 30px; }
+            .assinatura-box { width: 45%; text-align: center; font-size: 9.5pt; }
+            .linha { border-top: 1px solid #000; margin-bottom: 4px; }
+            @media print {
+                button { display: none; }
+                body { padding: 0; }
+            }
+        </style>
+    </head>
+    <body>
+        <button onclick="window.print()" style="margin-bottom:20px; padding:10px 20px; font-size:14px; cursor:pointer;">Imprimir / Salvar em PDF</button>
 
-1. IDENTIFICAÇÃO DA TURMA E COMPONENTE CURRICULAR
-• Unidade Operacional: ${unidade}
-• Curso: ${curso}
-• Turma / Código: ${turma}
-• Unidade Curricular: ${disciplina}
-• Docente Responsável: ${docente}
-• Etapa Avaliativa: ${etapa}
-• Data e Horário: ${data}
+        <div class="header">
+            <div>SENAI – Serviço Nacional de Aprendizagem Industrial</div>
+            <div>${unidade}</div>
+            <div class="title">ATA DE CONSELHO DE CLASSE</div>
+        </div>
 
-2. PARTICIPANTES PRESENTES
-${participantes}
+        <table class="info-table">
+            <tr>
+                <td colspan="2"><strong>Curso:</strong> ${curso}</td>
+            </tr>
+            <tr>
+                <td colspan="2"><strong>Turma:</strong> ${turma}</td>
+            </tr>
+            <tr>
+                <td><strong>Cód. Turma:</strong> ${codTurma}</td>
+                <td><strong>Turno:</strong> ${turno}</td>
+            </tr>
+            <tr>
+                <td><strong>Período:</strong> ${periodo}</td>
+                <td><strong>Período Letivo:</strong> ${periodoLetivo}</td>
+            </tr>
+        </table>
 
-3. PAUTA E FUNDAMENTAÇÃO REGIMENTAL
-A presente reunião cumpre as determinações do Regimento Escolar do SENAI PR para análise processual e somativa do aprendizado, verificação do alcance das competências do perfil profissional, acompanhamento de frequência e definição de estratégias de recuperação contínua.
+        <p class="texto-paragrafo">
+            ${dataExtenso}, no ${unidade}, reuniu-se o Conselho de Classe da turma acima identificada, com a presença dos seguintes membros: 
+            <strong>${pedagogo}</strong>, Orientadora Pedagógica; 
+            <strong>${assistente}</strong>, Assistente Pedagógico; 
+            <strong>${supervisor}</strong>, Supervisora de Área; 
+            <strong>${professor}</strong>, Professor; e 
+            <strong>${secretaria}</strong>, representante da Secretaria.
+        </p>
 
-4. ANÁLISE DE DESEMPENHO E FREQUÊNCIA
-${desempenho}
+        <p class="texto-paragrafo">
+            O Conselho de Classe analisou, com base na Ata de Resultado Final da turma, a situação do aluno abaixo relacionado:
+        </p>
 
-5. ENCAMINHAMENTOS E PLANO DE AÇÃO PEDAGÓGICA
-${encaminhamentos}
+        <table class="dados-tabela">
+            <thead>
+                <tr>
+                    <th>R.A.</th>
+                    <th>Aluno</th>
+                    <th>Unidade Curricular</th>
+                    <th>Nota</th>
+                    <th>Faltas</th>
+                    <th>Frequência</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>${ra}</td>
+                    <td>${aluno}</td>
+                    <td>${uc}</td>
+                    <td>${nota}</td>
+                    <td>${faltas}</td>
+                    <td>${frequencia}</td>
+                </tr>
+            </tbody>
+        </table>
 
-6. ENCERRAMENTO E VALIDAÇÃO
-Nada mais havendo a tratar, encerrou-se a reunião e lavrou-se a presente ata.
+        <p class="texto-paragrafo">
+            Após a análise do desempenho e do percurso do aluno na unidade curricular, o Conselho deliberou, por unanimidade, pela <strong>${deliberacao}</strong> do aluno <strong>${aluno}</strong>, R.A. <strong>${ra}</strong>, por Conselho de Classe.
+        </p>
 
-____________________________________________
-Docente Responsável pelo Componente Curricular
+        <p class="texto-paragrafo">
+            Nada mais havendo a tratar, foi encerrada a reunião, e a presente ata, lida e aprovada, vai assinada pelos membros presentes.
+        </p>
 
-____________________________________________
-Orientação Pedagógica / Coordenação de Ensino - SENAI PR
+        <p style="margin-top:20px;">${dataAssinatura}</p>
+
+        <div class="assinaturas">
+            <div class="assinaturas-grid">
+                <div class="assinatura-box">
+                    <div class="linha"></div>
+                    <strong>${pedagogo}</strong><br>Orientadora Pedagógica
+                </div>
+                <div class="assinatura-box">
+                    <div class="linha"></div>
+                    <strong>${assistente}</strong><br>Assistente Pedagógico
+                </div>
+                <div class="assinatura-box">
+                    <div class="linha"></div>
+                    <strong>${supervisor}</strong><br>Supervisora de Área
+                </div>
+                <div class="assinatura-box">
+                    <div class="linha"></div>
+                    <strong>${professor}</strong><br>Professor
+                </div>
+                <div class="assinatura-box" style="margin: 0 auto;">
+                    <div class="linha"></div>
+                    <strong>${secretaria}</strong><br>Secretaria
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
     `;
 
-    let janela = window.open('', '', 'width=700,height=900');
-    janela.document.write('<pre style="white-space: pre-wrap; font-family: Arial; padding: 20px;">' + textoAta + '</pre>');
-    janela.document.write('<button onclick="window.print()" style="margin:20px; padding:10px 20px; font-size:16px;">Imprimir / Salvar em PDF</button>');
+    let janela = window.open('', '', 'width=850,height=900');
+    janela.document.write(htmlAta);
+    janela.document.close();
 }
 </script>
 
